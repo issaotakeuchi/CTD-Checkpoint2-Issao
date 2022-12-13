@@ -4,6 +4,7 @@ import ScheduleFormModal from "./ScheduleFormModal";
 import styles from "./DetailCard.module.css";
 import { AuthContext } from "../providers/AuthContext"
 import api from "../services/api"
+import { ThemeContext } from "../providers/ThemeContext"
 
 const DetailCard = () => {
   const { matricula } = useParams();
@@ -13,6 +14,8 @@ const DetailCard = () => {
   const { userData } = useContext(AuthContext);
 
   const { token } = userData;
+
+  const { theme } = useContext(ThemeContext)
 
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api passando o
@@ -67,7 +70,7 @@ const DetailCard = () => {
                 className={`btn btn-light ${styles.button
                   }`}
               >
-                Marcar consulta
+                Make appointment
               </button>
             </div>
           </div>

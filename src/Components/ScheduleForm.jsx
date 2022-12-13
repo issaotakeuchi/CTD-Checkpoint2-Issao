@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
 import api from "../services/api";
 import { AuthContext } from "../providers/AuthContext";
-
+import { useNavigate } from "react-router-dom";
+import { ThemeContext } from '../providers/ThemeContext';
 
 const ScheduleForm = () => {
   const { userData } = useContext(AuthContext);
@@ -18,6 +19,10 @@ const ScheduleForm = () => {
   const [appointmentDate, setAppointmentDate] = useState("");
 
   const { token } = userData;
+
+  const navigate = useNavigate();
+
+  const { theme } = useContext(ThemeContext)
 
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
@@ -43,7 +48,6 @@ const ScheduleForm = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       setDentists(response.data);
     } catch (e) {
       alert(e.message);
@@ -81,7 +85,6 @@ const ScheduleForm = () => {
       alert(JSON.stringify(data))
       alert(token)
       await api.post("/consulta", data, config)
-
       alert("appointment confirmed!");
     } catch (e) {
       alert(e.message);

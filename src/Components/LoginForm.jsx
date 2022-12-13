@@ -3,13 +3,17 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../providers/AuthContext';
 import api from '../services/api';
+import { ThemeContext } from '../providers/ThemeContext';
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
   const { fillUserDataState } = useContext(AuthContext);
+
   const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
+  
   const handleSubmit = (e) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
     //enviar os dados do formulário e enviá-los no corpo da requisição
@@ -22,6 +26,8 @@ const LoginForm = () => {
 
     auth();
   };
+
+  const { theme } = useContext(ThemeContext)
 
   async function auth() {
     validation();

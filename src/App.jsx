@@ -1,9 +1,12 @@
 
+import { useContext } from 'react'
 import { Outlet } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
+import { ThemeContext } from './providers/ThemeContext'
 
 function App() {
+  const { theme } = useContext(ThemeContext)
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação

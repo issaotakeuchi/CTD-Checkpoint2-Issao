@@ -1,9 +1,13 @@
 import styles from "./Footer.module.css";
+import { ThemeContext } from '../providers/ThemeContext';
+import { useContext } from 'react';
 
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo(0, 0)
   }
+  
+  const { theme } = useContext(ThemeContext)
   return (
     <footer>
       <div className={styles.footerWrapper}>

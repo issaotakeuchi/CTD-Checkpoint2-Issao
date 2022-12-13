@@ -1,7 +1,11 @@
+import { useContext } from 'react'
 import styles from "./Card.module.css";
+import { ThemeContext } from '../providers/ThemeContext';
 
 const Card = ( props ) => {
   const { dentist } = props;
+
+  const { theme } = useContext(ThemeContext)
 
   return (
     <>
