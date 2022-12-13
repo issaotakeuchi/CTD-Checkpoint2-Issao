@@ -1,22 +1,22 @@
 import { useState, useEffect, createContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [isLogged, setIsLogged] = useState(false);
 
   function fillUserDataState({ token }) {
     localStorage.setItem("@authDentist", JSON.stringify({ token }));
 
     setUserData({ ...userData, token });
+    setIsLogged(true);
   }
 
   function emptyUserData() {
-    setUserData({ token:"" });
+    localStorage.removeItem("@authDentist");
+    setIsLogged(false);
   }
 
   useEffect(() => {
@@ -28,13 +28,12 @@ const AuthProvider = ({ children }) => {
       user = JSON.parse(response);
 
       fillUserDataState({ token: user.token });
-      navigate(location?.pathname);
     }
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ userData, fillUserDataState, emptyUserData }}
+      value={{ userData, fillUserDataState, isLogged, emptyUserData }}
     >
       {children}
     </AuthContext.Provider>
