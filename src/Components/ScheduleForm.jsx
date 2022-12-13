@@ -1,19 +1,92 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
+import api from "../services/api";
+import { AuthContext } from "../providers/AuthContext";
+
 
 const ScheduleForm = () => {
+  const { userData } = useContext(AuthContext);
+
+  const [patients, setPatients] = useState([]);
+
+  const [patientSelected, setPatientSelected] = useState("");
+
+  const [dentists, setDentists] = useState([]);
+
+  const [dentistSelected, setDentistSelected] = useState("");
+
+  const [appointmentDate, setAppointmentDate] = useState("");
+
+  const { token } = userData;
+
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
     //e pacientes e carregar os dados em 2 estados diferentes
+    getAllDentists();
+    getAllPatients();
   }, []);
 
   const handleSubmit = (event) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
-    //obter os dados do formulário e enviá-los no corpo da requisição 
+    //obter os dados do formulário e enviá-los no corpo da requisição
     //para a rota da api que marca a consulta
     //lembre-se que essa rota precisa de um Bearer Token para funcionar.
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+    event.preventDefault();
+    postAppointment();
   };
+
+  async function getAllDentists() {
+    try {
+      const response = await api.get("/dentista", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setDentists(response.data);
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  async function getAllPatients() {
+    try {
+      const response = await api.get("/paciente", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setPatients(response.data.body);
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  async function postAppointment() {
+    const data = {
+      paciente: {
+        matricula: patientSelected,
+      },
+      dentista: {
+        matricula: dentistSelected,
+      },
+      endereco: {},
+      dataHoraAgendamento: appointmentDate,
+    };
+
+    try {
+      const config = { headers: { Authorization: `Bearer ${token}`} }
+      alert(JSON.stringify(data))
+      alert(token)
+      await api.post("/consulta", data, config)
+
+      alert("appointment confirmed!");
+    } catch (e) {
+      alert(e.message);
+    }
+  }
 
   return (
     <>
@@ -29,22 +102,22 @@ const ScheduleForm = () => {
               <label htmlFor="dentist" className="form-label">
                 Dentist
               </label>
-              <select className="form-select" name="dentist" id="dentist">
+              <select className="form-select" name="dentist" id="dentist" value={dentistSelected} onChange={(e) => setDentistSelected(e.target.value)}>
                 {/*Aqui deve ser feito um map para listar todos os dentistas*/}
-                <option key={'Matricula do dentista'} value={'Matricula do dentista'}>
-                  {`Nome Sobrenome`}
-                </option>
+                {dentists.map((dentist) => (
+                  <option key={dentist.matricula} value={dentist.matricula}>{`${dentist.nome} ${dentist.sobrenome}`}</option>
+                ))}
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="patient" className="form-label">
                 Patient
               </label>
-              <select className="form-select" name="patient" id="patient">
+              <select className="form-select" name="patient" id="patient" value={patientSelected} onChange={(e) => setPatientSelected(e.target.value)}>
                 {/*Aqui deve ser feito um map para listar todos os pacientes*/}
-                <option key={'Matricula do paciente'} value={'Matricula do paciente'}>
-                  {`Nome Sobrenome`}
-                </option>
+                {patients.map((patient) => (
+                  <option key={patient.matricula} value={patient.matricula}>{`${patient.nome} ${patient.sobrenome}`}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -58,6 +131,8 @@ const ScheduleForm = () => {
                 id="appointmentDate"
                 name="appointmentDate"
                 type="datetime-local"
+                value={appointmentDate}
+                onChange={(e) => setAppointmentDate(e.target.value)}
               />
             </div>
           </div>

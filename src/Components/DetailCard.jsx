@@ -56,7 +56,7 @@ const DetailCard = () => {
               <li className="list-group-item">Name: {dentist.nome}</li>
               <li className="list-group-item">Surname: {dentist.sobrenome}</li>
               <li className="list-group-item">Id: {dentist.matricula}</li>
-              <li className="list-group-item">Username: {dentist.usuario.username}</li>
+              <li className="list-group-item">Username: {/*{dentist.usuario.username}*/} </li>
             </ul>
             <div className="text-center">
               {/* //Na linha seguinte deverá ser feito um teste se a aplicação

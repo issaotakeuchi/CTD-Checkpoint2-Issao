@@ -11,13 +11,13 @@ const Home = () => {
   const { token } = userData
 
   useEffect(() => {
-    getDentists()
+    getAllDentists()
     //Nesse useEffect, deverá ser obtido todos os dentistas da API
     //Armazena-los em um estado para posteriormente fazer um map
     //Usando o componente <Card />
   }, [])
 
-  async function getDentists() {
+  async function getAllDentists() {
     try {
       const response = await api.get("/dentista", {
         headers: {
