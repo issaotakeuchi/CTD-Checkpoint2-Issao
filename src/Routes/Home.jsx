@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react"
 import Card from "../Components/Card"
 import api from '../services/api'
 import { AuthContext } from '../providers/AuthContext'
+import { ThemeContext } from '../providers/ThemeContext'
 
 const Home = () => {
   const [dentists, setDentists] = useState([])
@@ -9,6 +10,8 @@ const Home = () => {
   const { userData } = useContext(AuthContext)
 
   const { token } = userData
+
+  const { theme } = useContext(ThemeContext)
 
   useEffect(() => {
     getAllDentists()
@@ -32,11 +35,13 @@ const Home = () => {
 
   return (
     <>
-<h1>Home</h1>
-      <div className="card-grid container">
-        {dentists.map((dentist) => {
-          return <Card dentist={dentist} key={dentist.matricula}/>;
-        })}
+      <div className={theme === 'light' ? 'light' : 'dark'}>
+        <h1>Home</h1>
+        <div className="card-grid container">
+          {dentists.map((dentist) => {
+            return <Card dentist={dentist} key={dentist.matricula} />
+          })}
+        </div>
       </div>
     </>
   )

@@ -14,14 +14,14 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 //Lembre-se de configurar suas rotas e seu contexto aqui
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
       <ThemeProvider>
+    <BrowserRouter>
         <AuthProvider>
           <Navbar />
           <AppRoutes />
           <Footer />
         </AuthProvider>
-      </ThemeProvider>
     </BrowserRouter>
+      </ThemeProvider>
   </React.StrictMode>
 )

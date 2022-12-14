@@ -96,7 +96,7 @@ const ScheduleForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center container}`
+        className={theme === 'light' ? `text-center container` : `dark text-center container`
         }
       >
         <form onSubmit={handleSubmit}>
@@ -143,8 +143,7 @@ const ScheduleForm = () => {
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
             <button
-              className={`btn btn-light ${styles.button
-                }`}
+              className={theme === 'light' ? `btn btn-light ${styles.button}` : `btn btn-dark ${styles.button}`}
               type="submit"
             >
               Schedule

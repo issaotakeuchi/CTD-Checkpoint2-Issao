@@ -13,7 +13,7 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
-  
+
   const handleSubmit = (e) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
     //enviar os dados do formulário e enviá-los no corpo da requisição
@@ -57,7 +57,7 @@ const LoginForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center card container ${styles.card}`}
+        className={theme === 'light' ? `text-center card container ${styles.card}` : `text-center card container ${styles.card} ${styles.cardDark}`}
       >
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
