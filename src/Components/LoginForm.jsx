@@ -30,7 +30,7 @@ const LoginForm = () => {
   const { theme } = useContext(ThemeContext)
 
   async function auth() {
-    validation();
+    validations();
 
     try {
       const response = await api.post("/auth", {
@@ -46,9 +46,12 @@ const LoginForm = () => {
     }
   }
 
-  const validation = () => {
+  const validations = () => {
     if (username.length < 5) {
       alert("Login must have 5 characters at least.");
+    }
+    if (username.includes(" ")) {
+      alert("Login cannot receive spaces.");
     }
   };
 
