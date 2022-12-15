@@ -9,7 +9,7 @@ const Footer = () => {
 
   const { theme } = useContext(ThemeContext)
   return (
-    <footer className={theme === 'light' ? `light` : `dark`}>
+    <footer data-testid="footertest" className={theme === 'light' ? `light` : `dark`}>
       <div className={styles.footerWrapper}>
         <button className={`btn btn-danger ${styles.top}`} onClick={scrollToTop}>Voltar para o topo</button>
         {/* //Na linha seguinte deverá ser feito um teste se a aplicação

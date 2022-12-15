@@ -95,7 +95,7 @@ const ScheduleForm = () => {
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div
+      <div data-testid="scheduleformtest"
         className={theme === 'light' ? `text-center container` : `dark text-center container`
         }
       >

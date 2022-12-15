@@ -22,7 +22,7 @@ const Navbar = () => {
     <header className="sticky-top">
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar navbar-dark bg-dark ou navbar-light bg-light*/}
-      <nav
+      <nav data-testid="navbartest"
         className={theme === 'light' ? `navbar navbar-expand-sm navbar-light bg-light` : `navbar navbar-expand-sm navbar-black bg-black`}
         aria-label="Third navbar example"
       >
@@ -81,7 +81,7 @@ const Navbar = () => {
                  Lembre-se de usar um estado no contexto para fazer essa alteração.
                  Na linha seguinte deverá ser feito um teste se a aplicação
                  está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
-                <button onClick={handleTheme}
+                <button onClick={handleTheme} data-testid='btn-dark-mode'
                   className={theme === 'light' ? `btn btn-dark ${styles.btnStyle}` : `btn btn-light ${styles.btnStyle}`}
                 >
                   {theme === 'light' ? '🌙' : '☀'}

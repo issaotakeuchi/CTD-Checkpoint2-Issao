@@ -11,7 +11,7 @@ function App() {
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar a classe dark ou light */}
-      <div className={`dark`}>
+      <div className={theme === 'light' ? 'light' : 'dark'}>
         <Navbar />
         <main>
           <Outlet />
