@@ -82,8 +82,6 @@ const ScheduleForm = () => {
 
     try {
       const config = { headers: { Authorization: `Bearer ${token}`} }
-      alert(JSON.stringify(data))
-      alert(token)
       await api.post("/consulta", data, config)
       alert("appointment confirmed!");
     } catch (e) {
